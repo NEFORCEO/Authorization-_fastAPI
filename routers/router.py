@@ -24,7 +24,7 @@ async def db_result(db: SessionDep):
     else:
         return Response(
             status_code=404,
-            content="Ошиба смотри логи"
+            content="Возмжно база данных пустая"
         )
         
 @router.post('/register', response_model=Register)
@@ -37,7 +37,7 @@ async def register(param: ParamObj, db: SessionDep):
             content="Пользователь с данным именем уже существует"
         )
     # Преобразуем пароль в строку для сохранения в базу
-    new_password = int(bin(param.password)[2:])
+    new_password = bin(param.password)[2:]
     new_user = RegLog(name=param.name, password=new_password)
     db.add(new_user)
     await db.commit()
