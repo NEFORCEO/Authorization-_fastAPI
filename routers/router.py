@@ -35,7 +35,6 @@ async def register(param: ParamObj, db: SessionDep):
             status_code=409,
             content="Пользователь с данным именем уже существует"
         )
-    # Преобразуем пароль в строку для сохранения в базу
     new_password = bin(param.password)[2:]
     new_user = RegLog(name=param.name, password=new_password)
     db.add(new_user)
