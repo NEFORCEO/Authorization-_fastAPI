@@ -15,7 +15,6 @@ async def db_result(db: SessionDep):
     res = await db.execute(select(RegLog))
     data = res.scalars().all()
     if data:
-        # Преобразуем объекты RegLog в RegLogSchema
         result = [RegLogSchema.model_validate(user) for user in data]
         return GetResponse(
             status=200,
